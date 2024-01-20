@@ -12,7 +12,13 @@ namespace CoreDemo.Controllers
         }
         public IActionResult Index()
         {
-            var values = _blogService.GetAllAsync();
+            var values = _blogService.GetListWithCategoryAsync();
+            return View(values);
+        }
+        public IActionResult ReadAll(int id)
+        {
+            ViewBag.i = id;
+            var values = _blogService.GetByIdAsync(id);
             return View(values);
         }
     }
