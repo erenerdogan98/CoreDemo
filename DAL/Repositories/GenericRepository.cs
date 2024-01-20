@@ -2,6 +2,7 @@
 using DAL.Context;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace DAL.Repositories
@@ -38,9 +39,11 @@ namespace DAL.Repositories
 
         public async Task<T> GetByIdAsync(int id) => await QueryWithIncludes().FirstOrDefaultAsync(x => x.ID == id);
 
-        public Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            EntityEntry entityEntry = _context.Entry<T>(entity);
+            entityEntry.State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
