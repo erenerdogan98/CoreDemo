@@ -12,5 +12,9 @@ namespace Entities.Concrete
         public string Image { get; set; }
         public DateTime CreateDate { get; set; }
         public bool Status { get; set; }
+
+        // Relationship
+        public int CategoryID { get; set; }
+        public Category Category { get; set; }
     }
 }
