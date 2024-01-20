@@ -12,3 +12,10 @@ namespace DAL.Abstract
         Task<T> GetByIdAsync(int id);
     }
 }
+/* 
+ where T : class, IEntityBase, new() expression satisfies the following conditions:
+
+T must be a reference type (class).
+T must implement the IEntityBase interface.
+Type T must have a parameterless constructor (new()).
+ */
