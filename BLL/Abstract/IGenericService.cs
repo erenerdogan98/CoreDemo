@@ -9,6 +9,6 @@ namespace BLL.Abstract
         Task UpdateAsync(T entity);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
-		Task<IEnumerable<T>> List(Expression<Func<T, bool>> filter);
+		Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> filter);
 	}
 }
