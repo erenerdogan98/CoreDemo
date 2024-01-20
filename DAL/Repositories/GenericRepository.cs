@@ -45,5 +45,7 @@ namespace DAL.Repositories
             entityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-    }
+
+        public async Task<IEnumerable<T>> List(Expression<Func<T, bool>> filter) => await QueryWithIncludes().Where(filter).ToListAsync();   
+	}
 }
