@@ -1,5 +1,6 @@
 ﻿
 using Entities.Concrete;
+using System.Linq.Expressions;
 
 namespace DAL.Abstract
 {
@@ -10,6 +11,7 @@ namespace DAL.Abstract
         Task UpdateAsync(T entity);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
+        Task<IEnumerable<T>> List(Expression<Func<T, bool>> filter);
     }
 }
 /* 
