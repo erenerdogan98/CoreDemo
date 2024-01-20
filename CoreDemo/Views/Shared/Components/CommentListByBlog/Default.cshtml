@@ -2,6 +2,7 @@
 @model IEnumerable<Comment>
 <div class="comment-top">
 	<h4>Comments</h4>
+	@foreach (var item in Model){
 	<div class="media">
 		<img src="~/blogtheme/images/t1.jpg" alt="" class="img-fluid" />
 		<div class="media-body">
@@ -25,4 +26,5 @@
 			</div>
 		</div>
 	</div>
+	}
 </div>
