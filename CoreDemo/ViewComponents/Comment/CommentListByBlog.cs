@@ -10,10 +10,14 @@ namespace CoreDemo.ViewComponents.Comment
         {
             _commentService = commentService;
         }
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(int id)
 		{
-			var values = _commentService.GetByIdAsync(2);
-			return View();
+			var values = _commentService.GetByIdAsync(id);
+            if (values == null)
+            {
+                ViewBag.ShowAddCommentMessage = true; 
+            }
+            return View();
 		}
 	}
 }
