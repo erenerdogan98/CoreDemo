@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using DAL.Abstract;
 using Entities.Concrete;
+using System.Linq.Expressions;
 
 namespace BLL.Concrete
 {
@@ -18,7 +19,9 @@ namespace BLL.Concrete
 
         public async Task<IEnumerable<Category>> GetAllAsync() => await _categoryDAL.GetAllAsync();
 
-        public async Task<Category> GetByIdAsync(int id) => await _categoryDAL.GetByIdAsync(id);
+        public async Task<IEnumerable<Category>> GetAllAsync(Expression<Func<Category, bool>> filter) => await _categoryDAL.GetAllAsync(filter);
+
+		public async Task<Category> GetByIdAsync(int id) => await _categoryDAL.GetByIdAsync(id);
 
         public async Task UpdateAsync(Category category) => await _categoryDAL.UpdateAsync(category);
     }
