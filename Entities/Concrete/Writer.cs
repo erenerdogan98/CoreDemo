@@ -1,8 +1,10 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace Entities.Concrete
 {
     public class Writer
     {
+        [Key]
         public int ID { get; set; }
         public string Name { get; set; }
         public string About  { get; set; }
