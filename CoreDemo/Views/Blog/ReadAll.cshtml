@@ -1,4 +1,6 @@
-﻿
+﻿@using Entities.Concrete
+@model IEnumerable<Blog>
+
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/UserLayout.cshtml";
@@ -22,6 +24,7 @@
 			<div class="row">
 				<!--left-->
 				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+					@foreach(var item in Model){
 					<div class="blog-grid-top">
 						<div class="b-grid-top">
 							<div class="blog_info_left_grid">
@@ -56,7 +59,7 @@
 							aute irudre dolor in elit sed uta labore dolore reprehender</p>
 						<a href="single.html" class="btn btn-primary read-m">Read More</a>
 					</div>
-
+					}
 					<div class="comment-top">
 						<h4>Comments</h4>
 						<div class="media">
