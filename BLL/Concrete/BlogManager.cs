@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using DAL.Abstract;
 using Entities.Concrete;
+using System.Linq.Expressions;
 
 namespace BLL.Concrete
 {
@@ -21,6 +22,8 @@ namespace BLL.Concrete
 
         public async Task<List<Blog>> GetListWithCategoryAsync() => await _blogDAL.GetListWithCategoryAsync();
 
-        public async Task UpdateAsync(Blog blog) => await _blogDAL.UpdateAsync(blog);
+		public async Task<IEnumerable<Blog>> GetAllAsync(Expression<Func<Blog, bool>> filter) => await _blogDAL.GetAllAsync(filter);
+
+		public async Task UpdateAsync(Blog blog) => await _blogDAL.UpdateAsync(blog);
 	}
 }
