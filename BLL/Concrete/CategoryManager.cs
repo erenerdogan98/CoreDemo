@@ -7,6 +7,10 @@ namespace BLL.Concrete
     public class CategoryManager : ICategoryService
     {
         private readonly ICategoryDAL _categoryDAL;
+        public CategoryManager(ICategoryDAL categoryDAL)
+        {
+            _categoryDAL = categoryDAL ?? throw new ArgumentNullException(nameof(_categoryDAL));
+        }
         public async Task AddAsync(Category category) => await _categoryDAL.AddAsync(category);
 
 
