@@ -19,6 +19,8 @@ namespace BLL.Concrete
 
 		public async Task<Blog> GetByIdAsync(int id) => await _blogDAL.GetByIdAsync(id);
 
-		public async Task UpdateAsync(Blog blog) => await _blogDAL.UpdateAsync(blog);
+        public async Task<List<Blog>> GetListWithCategoryAsync() => await _blogDAL.GetListWithCategoryAsync();
+
+        public async Task UpdateAsync(Blog blog) => await _blogDAL.UpdateAsync(blog);
 	}
 }
