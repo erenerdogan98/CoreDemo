@@ -2,7 +2,7 @@
 
 namespace Entities.Concrete
 {
-    public class About
+    public class About : IEntityBase
     {
         [Key]
         public int ID { get; set; }

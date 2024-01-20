@@ -2,7 +2,7 @@
 
 namespace Entities.Concrete
 {
-    public class Writer
+    public class Writer : IEntityBase
     {
         [Key]
         public int ID { get; set; }

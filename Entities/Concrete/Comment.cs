@@ -2,7 +2,7 @@
 
 namespace Entities.Concrete
 {
-    public class Comment
+    public class Comment : IEntityBase
     {
         [Key]
         public int ID { get; set; }
