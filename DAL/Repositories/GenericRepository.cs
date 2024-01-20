@@ -46,6 +46,6 @@ namespace DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> List(Expression<Func<T, bool>> filter) => await QueryWithIncludes().Where(filter).ToListAsync();   
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> filter) => await QueryWithIncludes().Where(filter).ToListAsync();   
 	}
 }
