@@ -16,5 +16,8 @@ namespace Entities.Concrete
         // Relationship
         public int CategoryID { get; set; }
         public Category Category { get; set; }
+
+        // for comment
+        public List<Comment> Comments { get; set; }
     }
 }
