@@ -22,13 +22,14 @@
 
                             @* <input type="text" class="form-control" id="validationDefault01" name="Name" required=""> *@
                             @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(x => x.Name)
+                            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger"})
+                            @* "" for error message ,  I already take that from FluentValidation  *@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom02">Mail Address</label>
                             @* <input type="email" class="form-control" id="validationDefault02" name="Email" required=""> *@
                             @Html.TextBoxFor(x => x.Email, new { @class = "form-control" }))
-                            @Html.ValidationMessageFor(x => x.Email)
+                            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" }))
                         </div>
                     </div>
                     <div class="form-row">
@@ -36,7 +37,7 @@
                             <label for="exampleInputPassword1 mb-2">Password</label>
                             @* <input type="password" class="form-control" id="password1" name="Password" required=""> *@
                             @Html.TextBoxFor(x => x.Password, new { @class = "form-control" }))
-                            @Html.ValidationMessageFor(x => x.Password)
+                            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" }))
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword2 mb-2">Confirm Password</label>
@@ -46,7 +47,7 @@
                             <label for="exampleInputImage mb-2">Image Folder</label>
                             @* <input type="text" class="form-control" id="password2" name="Image" required=""> *@
                             @Html.TextBoxFor(x => x.Image, new { @class = "form-control" }))
-                            @Html.ValidationMessageFor(x => x.Image)
+                            @Html.ValidationMessageFor(x => x.Image, "", new { @class = "text-danger" }))
                         </div>
 
                     </div>
