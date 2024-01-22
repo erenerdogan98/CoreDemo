@@ -23,6 +23,10 @@ namespace CoreDemo.Controllers
 		[HttpPost]
 		public PartialViewResult PartialAddComment(Comment comment)
 		{
+			comment.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+			comment.Status = true;
+			comment.BlogID = 1;
+			_commentService.AddAsync(comment);
 			return PartialView();
 		}
 		public PartialViewResult CommentListByBlog() 
