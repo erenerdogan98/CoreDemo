@@ -1,16 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLL.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
 {
 	public class AboutController : Controller
 	{
-		public IActionResult Index()
+		private readonly IAboutService _aboutService;
+        public AboutController(IAboutService aboutService)
+        {
+            _aboutService = aboutService ?? throw new ArgumentNullException(nameof(_aboutService));
+        }
+        public IActionResult Index()
 		{
 			return View();
 		}
 		public PartialViewResult SocialMediaAbout()
 		{
-			return PartialView();
+			var values = _aboutService.GetAllAsync();
+			return PartialView(values);
 		}
 	}
 }
