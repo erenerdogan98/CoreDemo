@@ -28,11 +28,12 @@
                         <h3>
                             Amet consectetur adipisicing
                         </h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua uta enim ad minim ven iam quis nostrud exercitation ullamco labor nisi ut aliquip exea commodo consequat duis
-                            aute irudre dolor in elit sed uta labore dolore reprehender
-                        </p>
+                        @foreach (var item in Model)
+                        {
+                            <p>
+                                @item.Details1
+                            </p>
+                        }
                         <a href="single.html" class="btn btn-primary read-m">Read More</a>
                     </div>
                 </div>
