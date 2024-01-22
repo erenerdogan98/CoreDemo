@@ -19,8 +19,8 @@ namespace Entities.Concrete
 
         // for comment
         public List<Comment> Comments { get; set; }
-		// for Writer
-		public int WriterID { get; set; }
+        // for Writer
+        public int? WriterID { get; set; } 
 		public Writer Writer { get; set; }
 	}
 }
