@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Entities.Concrete
+@model Writer
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
@@ -8,49 +10,50 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
 <section class="main-content-w3layouts-agileits">
-	<div class="container">
-		<h3 class="tittle">Writer Register Page</h3>
-		<div class="inner-sec">
-			<div class="login p-5 bg-light mx-auto mw-100">
-				<form method="post">
-					<div class="form-row">
-						<div class="col-md-6 mb-3">
-							<label for="validationCustom01">Name Surname</label>
+    <div class="container">
+        <h3 class="tittle">Writer Register Page</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Name Surname</label>
 
-							<input type="text" class="form-control" id="validationDefault01" name="Name" required="">
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="validationCustom02">Mail Address</label>
-							<input type="email" class="form-control" id="validationDefault02" name="Email" required="">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="exampleInputPassword1 mb-2">Password</label>
-							<input type="password" class="form-control" id="password1" name="Password" required="">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="exampleInputPassword2 mb-2">Confirm Password</label>
-							<input type="password" class="form-control" id="password2" placeholder="" required="">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="exampleInputImage mb-2">Image Folder</label>
-							<input type="text" class="form-control" id="password2" name="Image" required="">
-						</div>
+                            <input type="text" class="form-control" id="validationDefault01" name="Name" required="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Mail Address</label>
+                            <input type="email" class="form-control" id="validationDefault02" name="Email" required="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Password</label>
+                            <input type="password" class="form-control" id="password1" name="Password" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword2 mb-2">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" placeholder="" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputImage mb-2">Image Folder</label>
+                            <input type="text" class="form-control" id="password2" name="Image" required="">
+                        </div>
 
-					</div>
-					<button type="submit" class="btn btn-primary submit mb-4">Register</button>
-					<p>
-						<a href="#" id="btn1">By clicking Signup, I agree to your terms</a>
-					</p>
-				</form>
-				<br />
-				<script>
-					$('#btn1').click(function () {
-						swal("The latest developments and information will continue to be sent to the e-mail address you have registered with, without reaching the level of spam.If you want to unsubscribe from our e-mail newsletter,you can stop this, your password and e-mail information are stored encrypted.");
-					})
-				</script>
-			</div>
-		</div>
-	</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit mb-4">Register</button>
+                    <p>
+                        <a href="#" id="btn1">By clicking Signup, I agree to your terms</a>
+                    </p>
+                }
+                <br />
+                <script>
+                    $('#btn1').click(function () {
+                        swal("The latest developments and information will continue to be sent to the e-mail address you have registered with, without reaching the level of spam.If you want to unsubscribe from our e-mail newsletter,you can stop this, your password and e-mail information are stored encrypted.");
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
 </section>
