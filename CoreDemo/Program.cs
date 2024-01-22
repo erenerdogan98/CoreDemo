@@ -13,6 +13,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// for status code and 404 not found ..
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
