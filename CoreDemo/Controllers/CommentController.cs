@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
@@ -14,7 +15,13 @@ namespace CoreDemo.Controllers
 		{
 			return View();
 		}
+		[HttpGet]
 		public PartialViewResult PartialAddComment()
+		{
+			return PartialView();
+		}
+		[HttpPost]
+		public PartialViewResult PartialAddComment(Comment comment)
 		{
 			return PartialView();
 		}
