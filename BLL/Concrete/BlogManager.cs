@@ -25,5 +25,7 @@ namespace BLL.Concrete
 		public async Task<IEnumerable<Blog>> GetAllAsync(Expression<Func<Blog, bool>> filter) => await _blogDAL.GetAllAsync(filter);
 
 		public async Task UpdateAsync(Blog blog) => await _blogDAL.UpdateAsync(blog);
+
+		public async Task<List<Blog>> GetBlogsByWriterAsync(int id) => await _blogDAL.GetBlogsByWriterAsync(id);
 	}
 }
