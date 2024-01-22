@@ -79,6 +79,8 @@
 							<img src="~/blogtheme/images/banner1.jpg" class="img-fluid" alt="">
 						</div>
 						
+						@await Html.PartialAsync("~/Views/NewsLetter/SubscribeMail.cshtml")
+
 						@await Component.InvokeAsync("CategoryList")
 						
 						@await Component.InvokeAsync("WriterLastBlog")
