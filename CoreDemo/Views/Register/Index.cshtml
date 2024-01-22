@@ -41,10 +41,15 @@
 					</div>
 					<button type="submit" class="btn btn-primary submit mb-4">Register</button>
 					<p>
-						<a href="#">By clicking Signup, I agree to your terms</a>
+						<a href="#" id="btn1">By clicking Signup, I agree to your terms</a>
 					</p>
 				</form>
-
+				<br />
+				<script>
+					$('#btn1').click(function () {
+						swal("The latest developments and information will continue to be sent to the e-mail address you have registered with, without reaching the level of spam.If you want to unsubscribe from our e-mail newsletter,you can stop this, your password and e-mail information are stored encrypted.");
+					})
+				</script>
 			</div>
 		</div>
 	</div>
