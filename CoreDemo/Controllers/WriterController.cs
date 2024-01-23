@@ -23,5 +23,10 @@ namespace CoreDemo.Controllers
 		{
 			return View();
 		}
+		[AllowAnonymous]
+		public PartialViewResult WriterNavbarPartial()
+		{
+			return PartialView();
+		}
 	}
 }
