@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
@@ -25,6 +26,16 @@ namespace CoreDemo.Controllers
         {
             var values = _blogService.GetBlogsByWriterAsync(id);
             return View(values);
+        }
+        [HttpGet]
+        public IActionResult BlogAdd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult BlogAdd(Blog blog)
+        {
+            return View();
         }
     }
 }
