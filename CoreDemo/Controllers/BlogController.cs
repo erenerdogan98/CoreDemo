@@ -69,5 +69,11 @@ namespace CoreDemo.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> DeleteBlog(int id)
+        {
+            var blogValue = await _blogService.GetByIdAsync(id);
+            _blogService.DeleteAsync(blogValue);
+            return RedirectToAction("BlogListByWriter");
+        }
     }
 }
