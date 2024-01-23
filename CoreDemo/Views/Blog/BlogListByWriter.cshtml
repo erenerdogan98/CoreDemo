@@ -21,7 +21,7 @@
         <tr>
             <td>@item.ID</td>
             <td>@item.Title</td>
-            <td>@item.CreateDate</td>
+            <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
             <td>@item.Category.Name</td>
             <td>@item.Status</td>
             <td><a href="#" class="btn btn-danger">Delete</a></td>
