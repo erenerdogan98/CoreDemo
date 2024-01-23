@@ -14,4 +14,14 @@
         <th>Category</th>
         <th>Status</th>
     </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Title</td>
+            <td>@item.CreateDate</td>
+            <td>@item.CategoryID</td>
+            <td>@item.Status</td>
+        </tr>
+    }
 </table>
