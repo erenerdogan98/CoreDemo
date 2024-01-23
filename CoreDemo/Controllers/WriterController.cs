@@ -10,5 +10,9 @@ namespace CoreDemo.Controllers
 		{
 			return View();
 		}
+		public IActionResult WriterProfile()
+		{
+			return View();
+		}
 	}
 }
