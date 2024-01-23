@@ -76,9 +76,10 @@ namespace CoreDemo.Controllers
             return RedirectToAction("BlogListByWriter");
         }
         [HttpGet]
-        public IActionResult EditBlog(int id) 
+        public async Task<IActionResult> EditBlog(int id) 
         {
-            return View();
+            var blogValue = await _blogService.GetByIdAsync(id);
+            return View(blogValue);
         }
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
