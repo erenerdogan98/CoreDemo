@@ -4,3 +4,10 @@
     ViewData["Title"] = "EditBlog";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
+
+<h1>Edit Blog Page</h1>
+@using (Html.BeginForm("EditBlog", "Blog", FormMethod.Post))
+{
+    @Html.Label("Blog ID")
+    @Html.TextBoxFor(x => x.ID)
+}
