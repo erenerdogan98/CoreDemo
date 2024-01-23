@@ -12,7 +12,8 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        [AllowAnonymous]
         public IActionResult Index(Writer writer)
         {
             MyContext c = new MyContext();
