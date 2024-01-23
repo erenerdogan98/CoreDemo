@@ -45,7 +45,7 @@ namespace CoreDemo.Controllers
             Value = x.ID.ToString()
         })
         .ToList();
-            ViewBag.categoryValues = categoryValues;
+            ViewBag.cv = categoryValues;
             return View();
         }
         [HttpPost]
