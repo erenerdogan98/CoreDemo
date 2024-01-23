@@ -12,12 +12,12 @@ namespace CoreDemo.Controllers
         }
         public IActionResult Index()
 		{
-			return View();
+            var values = _aboutService.GetAllAsync();
+            return View(values);
 		}
 		public PartialViewResult SocialMediaAbout()
-		{
-			var values = _aboutService.GetAllAsync();
-			return PartialView(values);
+		{		
+			return PartialView();
 		}
 	}
 }
