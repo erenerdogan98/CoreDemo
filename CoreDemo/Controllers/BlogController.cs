@@ -75,5 +75,15 @@ namespace CoreDemo.Controllers
             _blogService.DeleteAsync(blogValue);
             return RedirectToAction("BlogListByWriter");
         }
+        [HttpGet]
+        public IActionResult EditBlog(int id) 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditBlog(Blog blog)
+        {
+            return RedirectToAction("BlogListByWriter");
+        }
     }
 }
