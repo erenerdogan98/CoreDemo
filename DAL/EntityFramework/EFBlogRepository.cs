@@ -23,5 +23,7 @@ namespace DAL.EntityFramework
         public async Task<List<Blog>> GetListWithCategoryAsync() => await CustomQueryWithIncludes(x => x.Category).ToListAsync();
 
         public async Task<List<Blog>> GetBlogsByWriterAsync(int id) => await CustomQueryWithIncludes(x => x.WriterID == id).ToListAsync();
-	}
+
+        public async Task<List<Blog>> GetListWithCategoryAsync(int id) => await CustomQueryWithIncludes(x => x.CategoryID == id).ToListAsync();
+    }
 }
