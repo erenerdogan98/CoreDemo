@@ -2,7 +2,7 @@
 
 namespace CoreDemo.Controllers
 {
-	public class WriterController1 : Controller
+	public class WriterController : Controller
 	{
 		public IActionResult Index()
 		{
