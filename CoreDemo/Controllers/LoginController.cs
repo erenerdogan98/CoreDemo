@@ -1,7 +1,9 @@
 ﻿using DAL.Context;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CoreDemo.Controllers
 {
@@ -14,13 +16,19 @@ namespace CoreDemo.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Index(Writer writer)
+        public async Task<IActionResult> Index(Writer writer)
         {
             MyContext c = new MyContext();
             var data = c.Writers.FirstOrDefault(x => x.Email == writer.Email && x.Password == writer.Password);
             if (data != null)
             {
-                HttpContext.Session.SetString("username", writer.Email);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, writer.Email)
+                };
+                var userIdentity = new ClaimsIdentity(claims, "a");
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.SignInAsync(claimsPrincipal);
                 return RedirectToAction("Index", "Writer");
             }
             else
