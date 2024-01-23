@@ -79,6 +79,15 @@ namespace CoreDemo.Controllers
         public async Task<IActionResult> EditBlog(int id) 
         {
             var blogValue = await _blogService.GetByIdAsync(id);
+            IEnumerable<Category> categories = await _categoryService.GetAllAsync();
+            List<SelectListItem> categoryValues = categories
+        .Select(x => new SelectListItem
+        {
+            Text = x.Name,
+            Value = x.ID.ToString()
+        })
+        .ToList();
+            ViewBag.cv = categoryValues;
             return View(blogValue);
         }
         [HttpPost]
