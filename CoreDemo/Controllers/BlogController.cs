@@ -3,6 +3,7 @@ using BLL.ValidationRules;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CoreDemo.Controllers
 {
@@ -10,9 +11,12 @@ namespace CoreDemo.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly BlogValidator _blogValidator;
-        public BlogController(IBlogService blogService , BlogValidator _blogValidator)
+        private readonly ICategoryService _categoryService;
+        public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService)
         {
             _blogService = blogService;
+            _blogValidator = blogValidator;
+            _categoryService = categoryService;
         }
         public IActionResult Index()
         {
@@ -25,14 +29,23 @@ namespace CoreDemo.Controllers
             var values = _blogService.GetByIdAsync(id);
             return View(values);
         }
-        public IActionResult BlogListByWriter(int id) 
+        public IActionResult BlogListByWriter(int id)
         {
             var values = _blogService.GetBlogsByWriterAsync(id);
             return View(values);
         }
         [HttpGet]
-        public IActionResult BlogAdd()
+        public async Task<IActionResult> BlogAdd()
         {
+            IEnumerable<Category> categories = await _categoryService.GetAllAsync();
+            List<SelectListItem> categoryValues = categories
+        .Select(x => new SelectListItem
+        {
+            Text = x.Name,
+            Value = x.ID.ToString()
+        })
+        .ToList();
+            ViewBag.categoryValues = categoryValues;
             return View();
         }
         [HttpPost]
