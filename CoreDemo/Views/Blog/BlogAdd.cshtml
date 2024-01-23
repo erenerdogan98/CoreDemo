@@ -6,3 +6,28 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
+<h1>New Blog</h1>
+<br />
+@using (Html.BeginForm("BlogAdd", "Blog", FormMethod.Post)) @* When the method is post, the blog will be added from within the Blog. *@
+{
+    @Html.Label("Blog Title")
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Title)
+    <br />
+    @Html.Label("Blog Image")
+    @Html.TextBoxFor(x => x.Image, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Image)
+    <br />
+    @Html.Label("Blog ThumbnailImage")
+    @Html.TextBoxFor(x => x.ThumbnailImage, new { @class = "form-control" })
+    <br />
+    @Html.Label("Category")
+    @Html.TextBoxFor(x => x.CategoryID, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.CategoryID)
+    <br />
+    @Html.Label("Blog Contetn")
+    @Html.TextAreaFor(x => x.Content , 15 , 3,  new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Content)
+    <br />
+    <button class="btn btn-info">Save</button>
+}
