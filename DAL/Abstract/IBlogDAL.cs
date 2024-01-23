@@ -6,5 +6,6 @@ namespace DAL.Abstract
     {
         Task<List<Blog>> GetListWithCategoryAsync();
         Task<List<Blog>> GetBlogsByWriterAsync(int id);
+        Task<List<Blog>> GetListWithCategoryAsync(int id);
     }
 }
