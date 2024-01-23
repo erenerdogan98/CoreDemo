@@ -8,7 +8,7 @@
         <div class="blog-grids row mb-3">
             <div class="col-md-5 blog-grid-left">
                 <a href="single.html">
-                    <img src="~/blogtheme/images/4.jpg" class="card-img-top img-fluid" alt="">
+                    <img src="@item.Image" class="card-img-top img-fluid" alt="">
                 </a>
             </div>
             <div class="col-md-7 blog-grid-right">
@@ -18,7 +18,7 @@
                 </h5>
                 <div class="sub-meta">
                     <span>
-                        <i class="far fa-clock"></i> 20 Jan, 2018
+                        <i class="far fa-clock"></i> @(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))
                     </span>
                 </div>
             </div>
