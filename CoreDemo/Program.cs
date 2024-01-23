@@ -46,6 +46,9 @@ app.UseStaticFiles();
 // Session
 app.UseSession();
 
+// Authentication
+app.UseAuthentication();
+
 app.UseRouting();
 
 app.UseAuthorization();
