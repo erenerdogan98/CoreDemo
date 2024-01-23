@@ -93,6 +93,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
+            blog.WriterID = 1;
+            blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            blog.Status = true;
+            _blogService.UpdateAsync(blog);
             return RedirectToAction("BlogListByWriter");
         }
     }
