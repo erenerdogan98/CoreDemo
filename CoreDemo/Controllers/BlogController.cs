@@ -21,5 +21,10 @@ namespace CoreDemo.Controllers
             var values = _blogService.GetByIdAsync(id);
             return View(values);
         }
+        public IActionResult BlogListByWriter(int id) 
+        {
+            var values = _blogService.GetBlogsByWriterAsync(id);
+            return View(values);
+        }
     }
 }
