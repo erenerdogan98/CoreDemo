@@ -14,5 +14,9 @@ namespace CoreDemo.Controllers
 		{
 			return View();
 		}
+		public IActionResult WriterMail() 
+		{
+			return View();
+		}
 	}
 }
