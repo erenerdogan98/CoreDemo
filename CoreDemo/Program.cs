@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Session
+builder.Services.AddSession();
 // for authorization 
 builder.Services.AddMvc(config =>
 {
@@ -30,6 +32,9 @@ app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// Session
+app.UseSession();
 
 app.UseRouting();
 
