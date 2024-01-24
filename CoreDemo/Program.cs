@@ -1,3 +1,4 @@
+using CoreDemo.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Services configurations
+builder.Services.ConfigureMyServices();
 
 // Session
 builder.Services.AddSession();
