@@ -11,6 +11,8 @@ namespace Entities.Concrete
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public bool Status { get; set; }
+        // for trigger
+        public int BlogScore { get; set; }
 
         //Relationships
         public int BlogID { get; set; }
