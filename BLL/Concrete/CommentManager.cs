@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Concrete
 {
-	internal class CommentManager : ICommentService
+	public class CommentManager : ICommentService
 	{
 		private readonly ICommentDAL _commentDAL;
         public CommentManager(ICommentDAL commentDAL)
