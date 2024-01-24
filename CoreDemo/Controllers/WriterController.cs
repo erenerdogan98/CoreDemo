@@ -40,10 +40,16 @@ namespace CoreDemo.Controllers
             return PartialView();
         }
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult WriterEditProfile()
         {
             var writerValues = _writerService.GetByIdAsync(1);
             return View(writerValues);
+        }
+        [HttpPost]
+        public IActionResult WriterEditProfile()
+        {
+            
         }
     }
 }
