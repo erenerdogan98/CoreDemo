@@ -11,27 +11,21 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Basic form elements</h4>
+                <h4 class="card-title">Writer Edit Profile</h4>
+                <br />
                 <p class="card-description"> Basic form elements </p>
                 <form class="forms-sample">
                     <div class="form-group">
-                        <label for="exampleInputName1">Name</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <label for="exampleInputName1">Writer Name</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control"})
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleSelectGender">Gender</label>
-                        <select class="form-control" id="exampleSelectGender">
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
+                        @Html.PasswordFor(x => x.Password , new { @class = "form-control"})
                     </div>
                     <div class="form-group">
                         <label>File upload</label>
