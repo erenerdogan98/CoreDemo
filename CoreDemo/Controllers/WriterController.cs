@@ -1,5 +1,7 @@
 ﻿using BLL.Abstract;
 using BLL.ValidationRules;
+using Entities.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,9 +52,9 @@ namespace CoreDemo.Controllers
             return View(writerValues);
         }
         [HttpPost]
-        public IActionResult WriterEditProfile()
+        public IActionResult WriterEditProfile(Writer writer)
         {
-            
+            ValidationResult validationResult = _writerValidator.Validate(writer);
         }
     }
 }
