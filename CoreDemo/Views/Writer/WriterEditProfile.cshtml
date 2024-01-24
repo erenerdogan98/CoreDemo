@@ -4,3 +4,11 @@
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
+
+<h1>Writer Edit Profile</h1>
+@using (Html.BeginForm("WriterEditProfile", "Writer", FormMethod.Post))
+{
+    @Html.TextBoxFor(x => x.ID)
+    <br />
+    @Html.TextBoxFor(x => x.Name)
+}
