@@ -23,6 +23,8 @@ namespace BLL.Concrete
 
 		public async Task<Writer> GetByIdAsync(int id) => await _writerDAL.GetByIdAsync(id);
 
-		public async Task UpdateAsync(Writer writer) => await _writerDAL.UpdateAsync(writer);
+        public async Task<List<Writer>> GetWriterByIdAsync(int id) => await _writerDAL.GetWriterByIdAsync(id);
+
+        public async Task UpdateAsync(Writer writer) => await _writerDAL.UpdateAsync(writer);
 	}
 }
