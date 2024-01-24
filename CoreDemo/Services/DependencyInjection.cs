@@ -35,6 +35,9 @@ namespace CoreDemo.Services
             services.AddScoped<IWriterDAL, EFWriterRepository>();
 
             services.AddScoped(typeof(IGenericDAL<>), typeof(GenericRepository<>));
+
+            services.AddScoped<INotificationService, NotificationManager>();
+            services.AddScoped<INotificationDAL, EFNotificationRepository>();
         }
     }
 }
