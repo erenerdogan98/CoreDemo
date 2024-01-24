@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace BLL.Concrete
 {
-    internal class NewsLetterManager : INewsLetterService
+    public class NewsLetterManager : INewsLetterService
     {
         private readonly INewsLetterDAL _newsLetterDAL;
         public NewsLetterManager(INewsLetterDAL newsLetterDAL)
