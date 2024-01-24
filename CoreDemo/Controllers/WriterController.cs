@@ -70,5 +70,17 @@ namespace CoreDemo.Controllers
             }
             return View();
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult WriterAdd()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult WriterAdd(Writer writer)
+        {
+            return View();
+        }
     }
 }
