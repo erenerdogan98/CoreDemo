@@ -55,6 +55,19 @@ namespace CoreDemo.Controllers
         public IActionResult WriterEditProfile(Writer writer)
         {
             ValidationResult validationResult = _writerValidator.Validate(writer);
+            if (validationResult.IsValid)
+            {
+                _writerService.UpdateAsync(writer);
+                return RedirectToAction("Dashboard", "Index");
+            }
+            else 
+            {
+                foreach (var item in validationResult.Errors) 
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }
