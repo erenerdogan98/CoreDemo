@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using BLL.ValidationRules;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,11 @@ namespace CoreDemo.Controllers
     public class WriterController : Controller
     {
         private readonly IWriterService _writerService;
-        public WriterController(IWriterService writerService)
+        private readonly WriterValidator _writerValidator;
+        public WriterController(IWriterService writerService, WriterValidator validationRules)
         {
             _writerService = writerService;
+            _writerValidator = validationRules;
         }
         [Authorize]
         public IActionResult Index()
