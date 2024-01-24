@@ -3,6 +3,7 @@ using BLL.Concrete;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.EntityFramework;
+using DAL.Repositories;
 
 namespace CoreDemo.Services
 {
@@ -32,6 +33,8 @@ namespace CoreDemo.Services
 
             services.AddScoped<IWriterService, WriterManager>();
             services.AddScoped<IWriterDAL, EFWriterRepository>();
+
+            services.AddScoped(typeof(IGenericDAL<>), typeof(GenericRepository<>));
         }
     }
 }
