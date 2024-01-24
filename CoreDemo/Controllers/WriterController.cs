@@ -51,6 +51,7 @@ namespace CoreDemo.Controllers
             var writerValues = _writerService.GetByIdAsync(1);
             return View(writerValues);
         }
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult WriterEditProfile(Writer writer)
         {
@@ -58,7 +59,7 @@ namespace CoreDemo.Controllers
             if (validationResult.IsValid)
             {
                 _writerService.UpdateAsync(writer);
-                return RedirectToAction("Dashboard", "Index");
+                return RedirectToAction("Index", "Dashboard");
             }
             else 
             {
