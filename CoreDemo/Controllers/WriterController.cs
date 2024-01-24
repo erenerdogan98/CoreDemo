@@ -1,5 +1,6 @@
 ﻿using BLL.Abstract;
 using BLL.ValidationRules;
+using CoreDemo.Models;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -78,9 +79,25 @@ namespace CoreDemo.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult WriterAdd(Writer writer)
+        public IActionResult WriterAdd(AddProfileImage p)
         {
-            return View();
+            Writer writer = new Writer();
+            if (p.Image != null)
+            {
+                var extension = Path.GetExtension(p.Image.FileName);
+                var newImageName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/WriterImageFiles" ,newImageName);
+                var stream = new FileStream(location, FileMode.Create);
+                p.Image.CopyTo(stream);
+                writer.Image = newImageName;
+            }
+            writer.Email = p.Email;
+            writer.Name = p.Name;
+            writer.Password = p.Password;
+            writer.Status = p.Status;
+            writer.About = p.About;
+            _writerService.AddAsync(writer);
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }
