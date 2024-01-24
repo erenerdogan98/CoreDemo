@@ -8,7 +8,7 @@ namespace DAL.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-57R498V\\SQLEXPRESS01;database=CoreBlogDb; integrated security=true");
+            optionsBuilder.UseSqlServer("server=DESKTOP-57R498V\\SQLEXPRESS01;database=CoreBlogDb; integrated security=true; TrustServerCertificate=true;");
         }
 
         public DbSet<About> Abouts { get; set; }
