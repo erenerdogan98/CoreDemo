@@ -44,6 +44,9 @@ namespace CoreDemo.Services
 
             services.AddScoped<IValidator<Writer>, WriterValidator>();
             services.AddValidatorsFromAssemblyContaining<WriterValidator>();
+
+            services.AddScoped<IMessageService, MessageManager>();
+            services.AddScoped<IMessageDAL, EFMessageRepository>();
         }
     }
 }
