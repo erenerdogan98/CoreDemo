@@ -6,8 +6,8 @@ namespace Entities.Concrete
     {
         [Key]
         public int ID { get; set; }
-        public int? Sender { get; set; }
-        public int? Receiver { get; set; }
+        public int? SenderID { get; set; }
+        public int? ReceiverID { get; set; }
         public string Subject { get; set; }
         public string Details { get; set; }
         public DateTime Date { get; set; }

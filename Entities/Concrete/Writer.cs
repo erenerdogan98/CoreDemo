@@ -17,7 +17,7 @@ namespace Entities.Concrete
         public List<Blog> Blogs { get; set; }
 
         // match tables foreign key
-        public virtual ICollection<Message2> WriteSender { get; set; }
-        public virtual ICollection<Message2> WriteReceiver { get; set; }
+        public virtual ICollection<Message2> WriterSender { get; set; }
+        public virtual ICollection<Message2> WriterReceiver { get; set; }
     }
 }
