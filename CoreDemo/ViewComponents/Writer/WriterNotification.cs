@@ -10,9 +10,9 @@ namespace CoreDemo.ViewComponents.Writer
         {
             _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = _notificationService.GetAllAsync();
+            var values = await _notificationService.GetAllAsync();
             return View(values);
         }
     }
