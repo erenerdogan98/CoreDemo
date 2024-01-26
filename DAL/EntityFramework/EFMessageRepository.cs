@@ -16,12 +16,12 @@ namespace DAL.EntityFramework
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Message>> GetInBoxListByWriter(string receiver) => await CustomQueryWithIncludes(x => x.Receiver == receiver).ToListAsync();
-
-        private IQueryable<Message> CustomQueryWithIncludes(params Expression<Func<Message, object>>[] includeProperties)
+        public async Task<List<Message>> GetInBoxListByWriter(string receiver)
         {
-            IQueryable<Message> query = _context.Set<Message>();
-            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await _context.Set<Message>()
+                .Where(x => x.Receiver == receiver) // Filtreleme işlemi Where metodu ile gerçekleştirin
+                .ToListAsync();
         }
+
     }
 }
