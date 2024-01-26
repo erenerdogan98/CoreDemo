@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLL.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IMessageService _messageService;
+        public WriterMessageNotification(IMessageService messageService)
         {
-            return View();
+            _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
+        }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            string reciever;
+            reciever = "test123@gmail.com";
+            var values = await _messageService.GetInBoxListByWriter(reciever);
+            return View(values);
         }
     }
 }
