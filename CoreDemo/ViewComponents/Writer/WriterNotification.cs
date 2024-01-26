@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.ViewComponents.Writer
 {
-    public class WriterNatification : ViewComponent
+    public class WriterNotification : ViewComponent
     {
         private readonly INotificationService _notificationService;
-        public WriterNatification(INotificationService notificationService)
+        public WriterNotification(INotificationService notificationService)
         {
             _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
         }
