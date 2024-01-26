@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
@@ -14,6 +15,7 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public async Task<IActionResult> AllNotification() 
         {
             var values = await _notificationService.GetAllAsync();
