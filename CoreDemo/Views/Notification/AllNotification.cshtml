@@ -4,3 +4,18 @@
     ViewData["Title"] = "AllNotification";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
+<h1>Notifications</h1>
+<table class="table table-border">
+    <tr>
+        <th>#</th>
+        <th>Notification</th>
+    </tr>
+    @foreach( var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Details</td>
+            <td>@item.Date.ToShortDateString()</td>
+        </tr>
+    }
+</table>
