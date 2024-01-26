@@ -22,6 +22,8 @@ namespace BLL.Concrete
 
         public async Task<Message> GetByIdAsync(int id) => await _messageDAL.GetByIdAsync(id);
 
+        public async Task<List<Message>> GetInBoxListByWriter(string receiver) => await _messageDAL.GetInBoxListByWriter(receiver);
+
         public async Task UpdateAsync(Message message) => await _messageDAL.UpdateAsync(message);
     }
 }
