@@ -1,9 +1,12 @@
 ﻿using BLL.Abstract;
 using BLL.Concrete;
+using BLL.ValidationRules;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.EntityFramework;
 using DAL.Repositories;
+using Entities.Concrete;
+using FluentValidation;
 
 namespace CoreDemo.Services
 {
@@ -38,6 +41,9 @@ namespace CoreDemo.Services
 
             services.AddScoped<INotificationService, NotificationManager>();
             services.AddScoped<INotificationDAL, EFNotificationRepository>();
+
+            services.AddScoped<IValidator<Writer>, WriterValidator>();
+            services.AddValidatorsFromAssemblyContaining<WriterValidator>();
         }
     }
 }

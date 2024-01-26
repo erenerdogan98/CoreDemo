@@ -1,4 +1,5 @@
 using CoreDemo.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 
 // Services configurations
 builder.Services.ConfigureMyServices();
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 // Session
 builder.Services.AddSession();
