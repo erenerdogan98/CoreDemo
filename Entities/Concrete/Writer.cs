@@ -15,5 +15,9 @@ namespace Entities.Concrete
 
         // relation with Blog
         public List<Blog> Blogs { get; set; }
+
+        // match tables foreign key
+        public virtual ICollection<Message2> WriteSender { get; set; }
+        public virtual ICollection<Message2> WriteReceiver { get; set; }
     }
 }
