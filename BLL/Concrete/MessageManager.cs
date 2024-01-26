@@ -1,6 +1,6 @@
 ﻿using BLL.Abstract;
 using DAL.Abstract;
-using Entities;
+using Entities.Concrete;
 using System.Linq.Expressions;
 
 namespace BLL.Concrete

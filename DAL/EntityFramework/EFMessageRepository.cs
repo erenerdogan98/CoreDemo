@@ -1,7 +1,6 @@
 ﻿using DAL.Abstract;
 using DAL.Context;
 using DAL.Repositories;
-using Entities;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

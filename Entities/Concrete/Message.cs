@@ -1,7 +1,6 @@
-﻿using Entities.Concrete;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entities
+namespace Entities.Concrete
 {
     public class Message : IEntityBase
     {
