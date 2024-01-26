@@ -12,5 +12,7 @@ namespace Entities.Concrete
         public string Details { get; set; }
         public DateTime Date { get; set; }
         public bool Status { get; set; }
+        public Writer SenderUser { get; set; }
+        public Writer ReceiverUser { get; set; }
     }
 }
