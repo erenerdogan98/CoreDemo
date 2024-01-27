@@ -1,5 +1,6 @@
 ﻿using BLL.Abstract;
 using BLL.ValidationRules;
+using DAL.Context;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace CoreDemo.Controllers
         private readonly IBlogService _blogService;
         private readonly BlogValidator _blogValidator;
         private readonly ICategoryService _categoryService;
-        public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService)
+        private readonly MyContext _context;
+        public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService , MyContext context)
         {
             _blogService = blogService;
             _blogValidator = blogValidator;
             _categoryService = categoryService;
+            _context = context;
         }
         public IActionResult Index()
         {
@@ -29,9 +32,11 @@ namespace CoreDemo.Controllers
             var values = _blogService.GetByIdAsync(id);
             return View(values);
         }
-        public IActionResult BlogListByWriter(int id)
+        public IActionResult BlogListByWriter()
         {
-            var values = _blogService.GetBlogsByWriterAsync(id);
+            var usermail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+            var values = _blogService.GetBlogsByWriterAsync(writerID);
             return View(values);
         }
         [HttpGet]
@@ -51,12 +56,14 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
+            var usermail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
             ValidationResult validationResult = _blogValidator.Validate(blog);
             if (validationResult.IsValid)
             {
                 blog.Status = true;
                 blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                blog.WriterID = 1;
+                blog.WriterID = writerID;
                 _blogService.AddAsync(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
@@ -93,7 +100,9 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
-            blog.WriterID = 1;
+            var usermail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+            blog.WriterID = writerID;
             blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             blog.Status = true;
             _blogService.UpdateAsync(blog);
