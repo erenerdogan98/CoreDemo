@@ -22,7 +22,7 @@ namespace BLL.Concrete
 
         public async Task<Message2> GetByIdAsync(int id) => await _message2DAL.GetByIdAsync(id);
 
-        public async Task<IEnumerable<Message2>> GetInBoxListByWriter(int receiverId) => await _message2DAL.GetAllAsync(x => x.ReceiverID == receiverId);
+        public async Task<List<Message2>> GetInBoxListByWriter(int receiverId) => await _message2DAL.GetListWithMessageByWriterAsync(receiverId);
 
         public async Task UpdateAsync(Message2 message) => await _message2DAL.UpdateAsync(message);
     }
