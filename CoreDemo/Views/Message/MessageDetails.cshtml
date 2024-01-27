@@ -8,12 +8,12 @@
 
 <h1>Message Details Page</h1>
 @Html.Label("Message ID")
-@Html.LabelFor(x => x.ID, new { @class = "form-control" })
+@Html.TextBoxFor(x => x.ID, new { @class = "form-control" })
 <br />
 @Html.Label("Message Title")
-@Html.LabelFor(x => x.Subject, new { @class = "form-control" })
+@Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
 <br />
 @Html.Label("Message Details")
-@Html.LabelFor(x => x.Details, new { @class = "form-control" })
+@Html.TextAreaFor(x => x.Details, new { @class = "form-control" })
 <br />
 <button class="btn btn-success">Back Messages</button>
