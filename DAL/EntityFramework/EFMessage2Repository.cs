@@ -15,7 +15,7 @@ namespace DAL.EntityFramework
             this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Message2>> GetListWithMessageByWriterAsync(int id) => await CustomQueryWithIncludes(x => x.ReceiverUser)
+        public async Task<List<Message2>> GetListWithMessageByWriterAsync(int id) => await CustomQueryWithIncludes(x => x.SenderUser)
             .Where(x => x.ReceiverID == id)
             .ToListAsync();
 
