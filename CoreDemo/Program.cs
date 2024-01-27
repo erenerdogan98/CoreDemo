@@ -45,7 +45,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // for status code and 404 not found ..
-app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -59,6 +59,11 @@ app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
+
+// Areas map controller route 
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
