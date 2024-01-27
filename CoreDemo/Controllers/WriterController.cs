@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using BLL.ValidationRules;
 using CoreDemo.Models;
+using DAL.Context;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,11 @@ namespace CoreDemo.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            var usermail = User.Identity.Name;
+            ViewBag.v = usermail;
+            MyContext c = new MyContext();
+            var writerName = c.Writers.Where(x => x.Email == usermail).Select(x => x.Name).FirstOrDefault();
+            ViewBag.v2 = writerName;
             return View();
         }
         public IActionResult WriterProfile()
