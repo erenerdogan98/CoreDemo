@@ -5,16 +5,15 @@ namespace CoreDemo.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        private readonly IMessageService _messageService;
-        public WriterMessageNotification(IMessageService messageService)
+        private readonly IMessage2Service _messageService;
+        public WriterMessageNotification(IMessage2Service messageService)
         {
             _messageService = messageService ?? throw new ArgumentNullException(nameof(messageService));
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string reciever;
-            reciever = "test123@gmail.com";
-            var values = await _messageService.GetInBoxListByWriter(reciever);
+            int id = 2;
+            var values = await _messageService.GetInBoxListByWriter(id);
             return View(values);
         }
     }
