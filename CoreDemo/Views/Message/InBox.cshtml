@@ -5,3 +5,25 @@
     ViewData["Title"] = "InBox";
     Layout = "~Views/Shared/WriterLayout.cshtml";
 }
+
+<h1>Inbox</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Sender</th>
+        <th>Date</th>
+        <th>Open Message</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Subject</td>
+            <td>@item.SenderUser.Name</td>
+            <td>@(((DateTime)item.Date).ToString("dd-MMM-yyyy"))</td>
+            <td><a href="/Blog/EditBlog/@item.ID" class="btn btn-warning">Open Message</a></td>
+        </tr>
+    }
+</table>
+<a href="/Blog/BlogAdd/" class="btn btn-primary">New Message</a>
