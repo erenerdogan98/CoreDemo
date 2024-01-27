@@ -6,6 +6,7 @@ using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreDemo.Controllers
 {
@@ -13,18 +14,20 @@ namespace CoreDemo.Controllers
     {
         private readonly IWriterService _writerService;
         private readonly WriterValidator _writerValidator;
-        public WriterController(IWriterService writerService, WriterValidator validationRules)
+        private readonly MyContext _context;
+        public WriterController(IWriterService writerService, WriterValidator validationRules, MyContext context)
         {
             _writerService = writerService;
             _writerValidator = validationRules;
+            _context = context;
+
         }
         [Authorize]
         public IActionResult Index()
         {
             var usermail = User.Identity.Name;
             ViewBag.v = usermail;
-            MyContext c = new MyContext();
-            var writerName = c.Writers.Where(x => x.Email == usermail).Select(x => x.Name).FirstOrDefault();
+            var writerName = _context.Writers.Where(x => x.Email == usermail).Select(x => x.Name).FirstOrDefault();
             ViewBag.v2 = writerName;
             return View();
         }
@@ -51,14 +54,14 @@ namespace CoreDemo.Controllers
         {
             return PartialView();
         }
-        [AllowAnonymous]
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
-            var writerValues = _writerService.GetByIdAsync(1);
+            var usermail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+            var writerValues = await _writerService.GetByIdAsync(writerID);
             return View(writerValues);
         }
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult WriterEditProfile(Writer writer)
         {
