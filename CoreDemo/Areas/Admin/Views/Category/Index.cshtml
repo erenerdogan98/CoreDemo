@@ -30,5 +30,6 @@
         </tr>
     }
 </table>
+<a href="#" class="btn btn-primary">New Category</a>
 <br />
 @Html.PagedListPager((IPagedList)Model,page => Url.Action("Index", new { page } ))
