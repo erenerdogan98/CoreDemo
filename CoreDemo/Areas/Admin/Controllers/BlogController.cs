@@ -39,6 +39,10 @@ namespace CoreDemo.Areas.Admin.Controllers
             };
             return blogModels;
         }
+        public IActionResult BlogListExcel()
+        {
+            return View();
+        }
 
     }
 }
