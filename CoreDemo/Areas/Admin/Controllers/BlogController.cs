@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using CoreDemo.Areas.Admin.Models;
+using DAL.Context;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Areas.Admin.Controllers
@@ -44,6 +45,44 @@ namespace CoreDemo.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult ExpertDynamicExcelBlogList()
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var workSheet = workbook.Worksheets.Add("Blog List");
+                workSheet.Cell(1, 1).Value = "Blog ID"; // first row first column .. 
+                workSheet.Cell(1, 2).Value = "Blog Name"; // first row second column ..
 
+                int blogRowCount = 2; // i write 2 because first row we will have titles (Id and name) 
+                foreach (var item in BlogTitleList())
+                {
+                    workSheet.Cell(blogRowCount, 1).Value = item.ID; // blorRowCount is row , 1 is column ..
+                    workSheet.Cell(blogRowCount, 2).Value = item.Name;
+                    blogRowCount++;
+                }
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, "application/vdn.openxmlformats-officedocument.spreadsheetml.sheet", "Worksheet1.xlsx");
+                }
+            }
+        }
+
+        public List<BlogModel2> BlogTitleList()
+        {
+            List<BlogModel2> bM = new List<BlogModel2>();
+            using (var c = new MyContext())
+            {
+                bM = c.Blogs.Select(x => new BlogModel2
+                { ID = x.ID, Name = x.Title }).ToList();
+            }
+            return bM;
+        }
+
+        public IActionResult BlogTitleListExcel()
+        {
+            return View();
+        }
     }
 }
