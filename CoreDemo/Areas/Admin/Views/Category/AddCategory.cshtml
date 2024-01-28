@@ -8,7 +8,7 @@
 
 <h1>New Category</h1>
 <br />
-@using (Html.BeginForm("CategoryAdd", "Category", FormMethod.Post)) @* When the method is post, the blog will be added from within the Blog. *@
+@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post)) @* When the method is post, the blog will be added from within the Blog. *@
 {
     @Html.Label("Category Name")
     @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
