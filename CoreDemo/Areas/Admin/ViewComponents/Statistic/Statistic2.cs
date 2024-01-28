@@ -13,7 +13,7 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
         }
         public async Task<IViewComponentResult> Invoke()
         {
-            ViewBag.v2 = _context.Contacts.Count();
+            ViewBag.v1 = _context.Blogs.OrderByDescending(x => x.ID).Select(x => x.Title).Take(1).FirstOrDefault();
 
             ViewBag.v3 = _context.Comments.Count();
             return View();
