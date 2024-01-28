@@ -48,5 +48,11 @@ namespace CoreDemo.Areas.Admin.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> CategoryDelete(int id)
+        {
+            var value = await _categoryService.GetByIdAsync(id);
+            await _categoryService.DeleteAsync(value);
+            return RedirectToAction("Index");
+        }
     }
 }
