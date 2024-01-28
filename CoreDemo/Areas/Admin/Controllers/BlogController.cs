@@ -45,7 +45,7 @@ namespace CoreDemo.Areas.Admin.Controllers
         {
             return View();
         }
-        public IActionResult ExpertDynamicExcelBlogList()
+        public IActionResult ExportDynamicExcelBlogList()
         {
             using (var workbook = new XLWorkbook())
             {
