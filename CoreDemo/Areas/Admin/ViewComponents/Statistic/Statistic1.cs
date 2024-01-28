@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using DAL.Context;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
 {
@@ -22,6 +23,12 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
             ViewBag.v2 = _context.Contacts.Count();
 
             ViewBag.v3 = _context.Comments.Count();
+
+            // for weather 
+            string api = "13fec22893de8dca085cb116ed27bfc4";
+            string connection = "https://api.openweathermap.org/data/2.5/weather?q=istanbul&mode=xml&lang=tr&units=metric&appid=" + api;
+            XDocument document = XDocument.Load(connection);
+            ViewBag.v4 = document.Descendants("temperature").ElementAt(0).Attribute("value");
             return View();
         }
     }
