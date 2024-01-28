@@ -6,4 +6,17 @@
     Layout = "~Views/Shared/AdminLayout.cshtml";
 }
 
-<h1>Add Category</h1>
+<h1>New Category</h1>
+<br />
+@using (Html.BeginForm("CategoryAdd", "Category", FormMethod.Post)) @* When the method is post, the blog will be added from within the Blog. *@
+{
+    @Html.Label("Category Name")
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Name)
+    <br />
+    @Html.Label("Category Description")
+    @Html.TextAreaFor(x => x.Description, 15, 3, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Description)
+    <br />
+    <button class="btn btn-info">Save</button>
+}
