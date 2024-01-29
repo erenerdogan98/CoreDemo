@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ChartController : Controller
     {
         public IActionResult Index()
