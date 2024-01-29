@@ -1,6 +1,7 @@
 ﻿using CoreDemo.Areas.Admin.Models;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
@@ -10,6 +11,12 @@ namespace CoreDemo.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult WriterList()
+        {
+            var jsonWriters = JsonConvert.SerializeObject(writers);
+            return Json(jsonWriters);
         }
 
         public static List<WriterClass> writers = new List<WriterClass>
