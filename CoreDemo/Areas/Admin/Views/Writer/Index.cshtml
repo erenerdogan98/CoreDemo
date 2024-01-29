@@ -13,7 +13,7 @@
 <div>
     <input type="text" id="writerId" placeholder="Write, Writer ID" class="form-control" />
 </div>
-@section scripts{
+@section scripts {
     <script>
         $("#btngetlist").click(function () {
             $.ajax({
@@ -21,7 +21,7 @@
                 dataType: "json",
                 type: "Get",
                 url: "/Admin/Writer/WriterList",
-                success:function(func) {
+                success: function (func) {
                     let w = jQuery.parseJSON(func);
                     console.log(w);
                     let tablehtml = "<table class=table table-bordered> <tr><th> Writer ID </th> <th> Writer Name </th> </tr>";
@@ -32,6 +32,10 @@
                     $("#writerlist").html(tablehtml);
                 }
             })
+        })
+        $("#btngetbyid").click(x => {
+            let id = $("writerId").val();
+            console.log(id);
         })
     </script>
 }
