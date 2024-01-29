@@ -40,13 +40,16 @@
                 dataType: "json",
                 type: "Get",
                 url: "/Admin/Writer/GetWriterById/",
-                data: { writerId : id},
+                data: { writerId: id },
                 success: function (func) {
                     let w = jQuery.parseJSON(func);
                     console.log(w);
+
+                    let getvalue = `<table class=table table-bordered> <tr> <th>Writer ID</th> <th>Writer Name</th></tr> <tr><td>${w.Id}</td><td>${w.Name}</td></tr></table>`;
+                    $("writerget").html(getvalue);
                 }
             })
-           
+
         })
     </script>
 }
