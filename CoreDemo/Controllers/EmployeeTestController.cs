@@ -18,11 +18,12 @@ namespace CoreDemo.Controllers
             var values = JsonConvert.DeserializeObject<List<Class1>>(jsonString);
             return View();
         }
-
+        [HttpGet]
         public IActionResult AddEmployee()
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> AddEmployee(Class1 employee) 
         {
             var jsonEmployee = JsonConvert.SerializeObject(employee);
