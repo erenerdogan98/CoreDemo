@@ -64,6 +64,16 @@
                 Id: $("#txtwriterId").val(),
                 Name: $("#txtwritername").val()
             };
+
+            $.ajax({
+                type:"post",
+                url:"/Admin/Writer/AddWriter",
+                data:writer,
+                success:function(func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("Adding writer is successfull");
+                }
+            })
         })
     </script>
 }
