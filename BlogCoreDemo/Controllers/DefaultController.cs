@@ -18,5 +18,12 @@ namespace BlogCoreAPIDemo.Controllers
             var employees = _context.Employees.ToList();
             return Ok(employees);
         }
+        [HttpPost]
+        public IActionResult AddEmployee(Employee employee) 
+        {
+            _context.Add(employee);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
