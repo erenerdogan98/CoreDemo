@@ -36,5 +36,21 @@ namespace BlogCoreAPIDemo.Controllers
             }
             return Ok(employee);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult EmployeeDelete(int id)
+        {
+            var employee = _context.Employees.Find(id); 
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.Remove(employee);
+                _context.SaveChanges();
+                return Ok();
+            }
+        }
     }
 }
