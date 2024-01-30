@@ -8,6 +8,7 @@
 <button type="button" id="btngetlist" class="btn btn-outline-primary">Writers</button>
 <button type="button" id="btngetbyid" class="btn btn-outline-success">Get Writer</button>
 <button type="button" id="btnaddwriter" class="btn btn-outline-info">Add Writer</button>
+<button type="button" id="btndeletewriter" class="btn btn-outline-danger">Delete Writer</button>
 <br />
 <div id="writerlist"></div>
 <div id="writerget"></div>
@@ -20,6 +21,10 @@
     <br />
     <input type="text" class="form-control" id="writername" placeholder="Writer Name" />
     <br />
+</div>
+
+<div>
+    <input type="text" class="form-control" id="txtid" placeholder="ID of the writer to be deleted " />
 </div>
 @section scripts {
     <script>
