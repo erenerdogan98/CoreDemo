@@ -1,10 +1,11 @@
 ﻿using Entities.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace DAL.Context
 {
-    public class MyContext : DbContext
+    public class MyContext : IdentityDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
