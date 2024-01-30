@@ -6,14 +6,19 @@
     Layout = "~Views/Shared/AdminLayout.cshtml";
 }
 
-<table>
+<table class="table table-bordered">
     <tr>
         <th>#</th>
         <th>Name Surname</th>
+        <th>Delete</th>
+        <th>Edit</th>
     </tr>
     @foreach ( var item in Model)
     {
         <td>@item.ID</td>
         <td>@item.Name</td>
+        <td><a href="#" class="btn btn-outline-danger">Delete</a></td>
+        <td><a href="#" class="btn btn-outline-success">Edit</a></td>
     }
 </table>
+<a href="#" class="btn btn-outline-primary">Add Employee</a>
