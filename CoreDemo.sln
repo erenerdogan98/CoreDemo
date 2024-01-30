@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{6CE52305-E938-4F48-BFE4-89947DB5AB18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCoreDemo", "BlogCoreDemo\BlogCoreDemo.csproj", "{DC72D735-8874-4BD3-8DCE-E50D06CDAC2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogCoreAPIDemo", "BlogCoreDemo\BlogCoreAPIDemo.csproj", "{DC72D735-8874-4BD3-8DCE-E50D06CDAC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
