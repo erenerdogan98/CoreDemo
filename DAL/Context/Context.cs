@@ -24,6 +24,8 @@ namespace DAL.Context
                 .WithMany(w => w.WriterReceiver)
                 .HasForeignKey(y => y.ReceiverID)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            base.OnModelCreating(modelBuilder); // to for identity .. 
         }
 
         public DbSet<About> Abouts { get; set; }
