@@ -98,5 +98,20 @@
                 }
             });
         });
+        $("btnupdatewriter").click(function () {
+            let writer = {
+                Id: $("#txtid1").val(),
+                Name: $("#txtwritername1").val()
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/Writer/UpdateWriter/",
+                data: writer,
+                success: function (func) {
+                    alert("Updated Writer is successfull");
+                }
+            });
+        });
     </script>
 }
