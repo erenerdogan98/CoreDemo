@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Context
 {
-    public class MyContext : IdentityDbContext<AppUser>
+    public class MyContext : IdentityDbContext<AppUser, AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
