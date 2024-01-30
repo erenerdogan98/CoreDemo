@@ -80,5 +80,17 @@
                 }
             })
         })
+        $("#btndeletewriter").click(x => {
+            let id = $("#txtid").val();
+
+            $.ajax({
+                url: "/Admin/Writer/DeleteWriter/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (func) {
+                    alert("The writer to be deleted successfull");
+                }
+            });
+        });
     </script>
 }
