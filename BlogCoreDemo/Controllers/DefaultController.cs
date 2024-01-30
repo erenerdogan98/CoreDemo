@@ -25,5 +25,16 @@ namespace BlogCoreAPIDemo.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult EmployeeGet(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return Ok(employee);
+        }
     }
 }
