@@ -1,0 +1,19 @@
+﻿@using CoreDemo.Controllers
+@model List<Class1>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~Views/Shared/AdminLayout.cshtml";
+}
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Name Surname</th>
+    </tr>
+    @foreach ( var item in Model)
+    {
+        <td>@item.ID</td>
+        <td>@item.Name</td>
+    }
+</table>
