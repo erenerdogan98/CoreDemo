@@ -60,6 +60,18 @@ namespace CoreDemo.Controllers
             }
             return View(employee);
         }
+
+        public async Task<IActionResult> DeleteEmployee(int id) 
+        {
+            var responseMessage = await _httpClient.DeleteAsync($"https://localhost:44368/api/Default/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonEmployee = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<Class1>(jsonEmployee);
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
     public class Class1
     {
