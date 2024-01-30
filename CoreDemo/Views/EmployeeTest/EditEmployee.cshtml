@@ -5,3 +5,14 @@
     ViewData["Title"] = "Index";
     Layout = "~Views/Shared/AdminLayout.cshtml";
 }
+
+<h1>Update Employee by API</h1>
+<form method="post">
+    <label>ID</label>
+    @Html.TextBoxFor(x => x.ID, new { @class = "form-control" })
+    <br />
+    <label>Employee</label>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-outline-success">Update</button>
+</form>
