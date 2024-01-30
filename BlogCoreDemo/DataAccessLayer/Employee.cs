@@ -1,7 +1,10 @@
-﻿namespace BlogCoreDemo.DataAccessLayer
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BlogCoreDemo.DataAccessLayer
 {
     public class Employee
     {
+        [Key]
         public int ID { get; set; }
         public string Name { get; set; }
     }
