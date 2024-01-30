@@ -35,7 +35,7 @@ namespace CoreDemo.Controllers
             }
             return View(employee);
         }
-
+        [HttpGet]
         public async Task<IActionResult> EditEmployee(int id)
         {
             var responseMessage = await _httpClient.GetAsync($"https://localhost:44368/api/Default/{id}");
