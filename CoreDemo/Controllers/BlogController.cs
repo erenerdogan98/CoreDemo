@@ -3,6 +3,7 @@ using BLL.ValidationRules;
 using DAL.Context;
 using Entities.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -21,6 +22,7 @@ namespace CoreDemo.Controllers
             _categoryService = categoryService;
             _context = context;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = _blogService.GetListWithCategoryAsync();

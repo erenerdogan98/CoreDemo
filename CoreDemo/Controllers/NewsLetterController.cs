@@ -1,9 +1,11 @@
 ﻿using BLL.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
 {
+    [AllowAnonymous]
     public class NewsLetterController : Controller
     {
         private readonly INewsLetterService _newsLetterService;
