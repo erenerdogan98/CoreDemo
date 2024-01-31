@@ -19,10 +19,10 @@ namespace CoreDemo.Controllers
             return PartialView();
         }
         [HttpPost]
-        public PartialViewResult SubscribeMail(NewsLetter newsLetter)
+        public async Task<IActionResult> SubscribeMail(NewsLetter newsLetter)
         {
             newsLetter.MailStatus = true;
-            _newsLetterService.AddAsync(newsLetter);
+            await _newsLetterService.AddAsync(newsLetter);
             return PartialView();
         }
     }
