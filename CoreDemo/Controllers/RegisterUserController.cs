@@ -1,11 +1,13 @@
 ﻿using CoreDemo.Models;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CoreDemo.Controllers
 {
+    [AllowAnonymous]
     public class RegisterUserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
