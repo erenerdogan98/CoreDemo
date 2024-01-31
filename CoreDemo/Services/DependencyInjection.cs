@@ -47,6 +47,9 @@ namespace CoreDemo.Services
 
             services.AddScoped<IMessageService, MessageManager>();
             services.AddScoped<IMessageDAL, EFMessageRepository>();
+
+            //identity 
+            services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<MyContext>();
         }
     }
 }
