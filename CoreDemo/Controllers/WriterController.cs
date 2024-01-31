@@ -57,7 +57,8 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
             var writerValues = await _writerService.GetByIdAsync(writerID);
             return View(writerValues);
