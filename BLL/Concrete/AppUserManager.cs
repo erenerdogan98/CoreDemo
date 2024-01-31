@@ -5,10 +5,10 @@ using System.Linq.Expressions;
 
 namespace BLL.Concrete
 {
-    public class UserManager : IUserService<AppUser>
+    public class AppUserManager : IUserService<AppUser>
     {
         private readonly IUserDAL<AppUser> _userDAL;
-        public UserManager(IUserDAL<AppUser> userDAL)
+        public AppUserManager(IUserDAL<AppUser> userDAL)
         {
             _userDAL = userDAL ?? throw new ArgumentNullException(nameof(userDAL));
         }
