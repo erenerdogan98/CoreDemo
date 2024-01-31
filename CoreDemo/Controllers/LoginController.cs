@@ -1,4 +1,5 @@
-﻿using DAL.Context;
+﻿using CoreDemo.Models;
+using DAL.Context;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,26 @@ namespace CoreDemo.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(UserSignInViewModel user)
+        {
+            if ( ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user.userName, user.password, false, true);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
         //[HttpPost]
         //[AllowAnonymous]
