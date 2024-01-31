@@ -13,12 +13,13 @@ namespace CoreDemo.ViewComponents.Writer
             _writerService = writerService;
             this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> Invoke()
         {
             var usermail = User.Identity.Name;
+            ViewBag.v = usermail;
             var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
             var values = _writerService.GetWriterByIdAsync(writerID);
-            return View(values);
+            return View(usermail);
         }
     }
 }
