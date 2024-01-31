@@ -49,7 +49,10 @@ namespace CoreDemo.Services
             services.AddScoped<IMessageDAL, EFMessageRepository>();
 
             //identity 
-            services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<MyContext>();
+            services.AddIdentity<AppUser,AppRole>( x =>
+            {
+                x.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<MyContext>();
         }
     }
 }
