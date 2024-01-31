@@ -1,5 +1,5 @@
 ﻿@using Entities.Concrete
-@model Writer
+@model AppUser
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
@@ -13,12 +13,16 @@
             <div class="card-body">
                 <h4 class="card-title">Writer Edit Profile</h4>
                 <br />
-                @Html.HiddenFor(x => x.ID, new { @class = "form-control" })
+                @Html.HiddenFor(x => x.Id, new { @class = "form-control" })
                 <p class="card-description"> Basic form elements </p>
                 <form class="forms-sample">
                     <div class="form-group">
                         <label for="exampleInputName1">Writer Name</label>
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        @Html.TextBoxFor(x => x.NameSurname, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">User Name</label>
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email address</label>
@@ -26,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Password</label>
-                        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(x => x.PasswordHash, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label>Writer Image</label>
@@ -38,10 +42,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    @* <div class="form-group">
                         <label for="exampleTextarea1">About Writer</label>
                         @Html.TextAreaFor(x => x.About, 10, 3, new { @class = "form-control" })
-                    </div>
+                    </div> *@
                     <button type="submit" class="btn btn-gradient-primary mr-2">Update</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>
