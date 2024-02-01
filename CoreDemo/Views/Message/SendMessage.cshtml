@@ -5,3 +5,19 @@
     ViewData["Title"] = "SendMessage";
     Layout = "~Views/Shared/WriterLayout.cshtml";
 }
+
+<h1>New Message</h1>
+<br />
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+{
+    @Html.Label("Receiver")
+    <input type="text" class="form-control" />
+    <br />
+    @Html.Label("Subject")
+    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+    <br />
+    @Html.Label("Message")
+    @Html.TextAreaFor(x => x.Details, 15, 3, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Send Message</button>
+}
