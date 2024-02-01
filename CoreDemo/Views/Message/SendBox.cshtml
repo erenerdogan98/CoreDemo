@@ -1,5 +1,29 @@
-﻿
+﻿@using Entities.Concrete
+@model List<Message2>
+
 @{
     ViewData["Title"] = "SendBox";
     Layout = "~Views/Shared/WriterLayout.cshtml";
 }
+
+<h1>Send Box</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Sender</th>
+        <th>Date</th>
+        <th>Open Message</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Subject</td>
+            <td>@item.ReceiverUser.Name</td>
+            <td>@(((DateTime)item.Date).ToString("dd-MMM-yyyy"))</td>
+            <td><a href="/Message/MessageDetails/@item.ID" class="btn btn-warning">Open Message</a></td>
+        </tr>
+    }
+</table>
+<a href="/Message/SendMessage/" class="btn btn-primary">New Message</a>
