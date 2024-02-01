@@ -62,32 +62,24 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {
-            var username = User.Identity.Name;
-            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            //var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
-            //var writerValues = await _writerService.GetByIdAsync(writerID);
-            //return View(writerValues);
-            var id = await _context.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefaultAsync();
-            var values = await _appUserManager.GetByIdAsync(id);
+            //var username = User.Identity.Name;
+            //var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            ////var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+            ////var writerValues = await _writerService.GetByIdAsync(writerID);
+            ////return View(writerValues);
+            //var id = await _context.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefaultAsync();
+            //var values = await _appUserManager.GetByIdAsync(id);
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
             return View();
         }
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer writer)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-            ValidationResult validationResult = _writerValidator.Validate(writer);
-            if (validationResult.IsValid)
-            {
-                _writerService.UpdateAsync(writer);
-                return RedirectToAction("Index", "Dashboard");
-            }
-            else 
-            {
-                foreach (var item in validationResult.Errors) 
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            model.mail = values.Email;
+            model.namesurname = values.NameSurname;
+            model.imageurl = values.ImageUrl;
+            return RedirectToAction("Index", "Dashboard");
         }
         [AllowAnonymous]
         [HttpGet]
