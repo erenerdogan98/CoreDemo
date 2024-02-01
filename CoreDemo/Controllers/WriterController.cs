@@ -62,24 +62,29 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {
-            //var username = User.Identity.Name;
-            //var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            ////var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
-            ////var writerValues = await _writerService.GetByIdAsync(writerID);
-            ////return View(writerValues);
-            //var id = await _context.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefaultAsync();
-            //var values = await _appUserManager.GetByIdAsync(id);
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View();
+            UserUpdateViewModel model = new UserUpdateViewModel();
+            model.mail = values.Email;
+            model.namesurname = values.NameSurname;
+            model.imageurl = values.ImageUrl;
+            model.username = values.UserName;
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            model.mail = values.Email;
-            model.namesurname = values.NameSurname;
-            model.imageurl = values.ImageUrl;
-            return RedirectToAction("Index", "Dashboard");
+            values.Email = model.mail;
+            values.NameSurname = model.namesurname;
+            values.ImageUrl = model.imageurl;
+            var result = await _userManager.UpdateAsync(values);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+                return RedirectToAction("Index", "Login");
+
         }
         [AllowAnonymous]
         [HttpGet]
@@ -96,7 +101,7 @@ namespace CoreDemo.Controllers
             {
                 var extension = Path.GetExtension(p.Image.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/WriterImageFiles" ,newImageName);
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles", newImageName);
                 var stream = new FileStream(location, FileMode.Create);
                 p.Image.CopyTo(stream);
                 writer.Image = newImageName;
