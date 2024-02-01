@@ -77,6 +77,7 @@ namespace CoreDemo.Controllers
             values.Email = model.mail;
             values.NameSurname = model.namesurname;
             values.ImageUrl = model.imageurl;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.password);
             var result = await _userManager.UpdateAsync(values);
             if (result.Succeeded)
             {
