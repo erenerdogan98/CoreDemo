@@ -59,8 +59,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+
             ValidationResult validationResult = _blogValidator.Validate(blog);
             if (validationResult.IsValid)
             {
@@ -103,8 +105,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+
             blog.WriterID = writerID;
             blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             blog.Status = true;
