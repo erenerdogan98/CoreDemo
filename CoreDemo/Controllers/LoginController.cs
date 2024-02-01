@@ -41,27 +41,10 @@ namespace CoreDemo.Controllers
                 return View();
             }
         }
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Index(Writer writer)
-        //{
-        //    MyContext c = new MyContext();
-        //    var data = c.Writers.FirstOrDefault(x => x.Email == writer.Email && x.Password == writer.Password);
-        //    if (data != null)
-        //    {
-        //        var claims = new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.Name, writer.Email)
-        //        };
-        //        var userIdentity = new ClaimsIdentity(claims, "a");
-        //        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(userIdentity);
-        //        await HttpContext.SignInAsync(claimsPrincipal);
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
