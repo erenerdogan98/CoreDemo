@@ -19,6 +19,8 @@ namespace DAL.EntityFramework
             .Where(x => x.ReceiverID == id)
             .ToListAsync();
 
+        public async Task<List<Message2>> GetSendBoxByWriterAsync(int id) => await CustomQueryWithIncludes(x => x.ReceiverUser).Where(y => y.SenderID == id).ToListAsync();
+
         private IQueryable<Message2> CustomQueryWithIncludes(params Expression<Func<Message2, object>>[] includeProperties)
         {
             IQueryable<Message2> query = _context.Set<Message2>();
