@@ -15,7 +15,7 @@ namespace CoreDemo.Controllers
         private readonly BlogValidator _blogValidator;
         private readonly ICategoryService _categoryService;
         private readonly MyContext _context;
-        public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService , MyContext context)
+        public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService, MyContext context)
         {
             _blogService = blogService;
             _blogValidator = blogValidator;
@@ -36,7 +36,8 @@ namespace CoreDemo.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
             var values = _blogService.GetBlogsByWriterAsync(writerID);
             return View(values);
@@ -85,7 +86,7 @@ namespace CoreDemo.Controllers
             return RedirectToAction("BlogListByWriter");
         }
         [HttpGet]
-        public async Task<IActionResult> EditBlog(int id) 
+        public async Task<IActionResult> EditBlog(int id)
         {
             var blogValue = await _blogService.GetByIdAsync(id);
             IEnumerable<Category> categories = await _categoryService.GetAllAsync();
