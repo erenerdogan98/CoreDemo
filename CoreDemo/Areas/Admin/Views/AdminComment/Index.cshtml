@@ -49,24 +49,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><span class="pie">0.52,1.041</span></td>
-                                    <td>Samantha</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 40% </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><span class="pie">226,134</span></td>
-                                    <td>Jacob</td>
-                                    <td class="text-warning"> <i class="fa fa-level-down"></i> -20% </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><span class="pie">0.52/1.561</span></td>
-                                    <td>Damien</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 26% </td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Blog.Title</td>
+                                        <td class="text-navy"> <i class="fa fa-level-up"></i> @item.BlogScore</td>
+                                        <td>@(((DateTime)item.Date).ToString("dd-MMM-yyyy"))</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
