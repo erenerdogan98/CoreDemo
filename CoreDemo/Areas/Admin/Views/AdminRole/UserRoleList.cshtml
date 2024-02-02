@@ -7,3 +7,16 @@
 
 <h1>UserRoleList</h1>
 
+<table class="table table-bordered">
+    <tr>
+        <th>User</th>
+        <th>Assign Role</th>
+    </tr>
+    @foreach ( var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td><a href="/Admin/AdminRole/AssignRole/@item.Id/" class="btn btn-outline-twitter">Assign Role</a></td>
+        </tr>
+    }
+</table>
