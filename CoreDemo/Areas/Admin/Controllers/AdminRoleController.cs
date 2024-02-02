@@ -88,5 +88,16 @@ namespace CoreDemo.Areas.Admin.Controllers
             var values = _userManager.Users.ToList();
             return View(values);
         }
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+
+            TempData["Userid"] = user.Id;
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            return View();
+        }
     }
 }
