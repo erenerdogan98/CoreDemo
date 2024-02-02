@@ -30,5 +30,10 @@ namespace CoreDemo.Areas.Admin.Controllers
             var values = await _messageService.GetSendBoxByWriterAsync(writerId);
             return View(values);
         }
+
+        public IActionResult ComposeMessage()
+        {
+            return View();
+        }
     }
 }
