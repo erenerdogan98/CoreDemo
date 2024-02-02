@@ -96,7 +96,7 @@ namespace CoreDemo.Areas.Admin.Controllers
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
             var roles = _roleManager.Roles.ToList();
 
-            TempData["Userid"] = user.Id;
+            TempData["UserId"] = user.Id;
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -110,6 +110,24 @@ namespace CoreDemo.Areas.Admin.Controllers
                 model.Add(m);
             }
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model) //Through this model, I will keep the values whose status is false.
+        {
+            var userid = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userid); // It keeps the user who authenticates to the system.
+            foreach (var item in model)
+            {
+                if (item.Exists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name); // We will delete the unselected values from the list.
+                }
+            }
+            return RedirectToAction("UserRoleList");
         }
     }
 }
