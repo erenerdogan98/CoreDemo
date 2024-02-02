@@ -2,6 +2,7 @@
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminBlogController : Controller
     {
         public IActionResult Index()
