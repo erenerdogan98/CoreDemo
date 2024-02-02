@@ -1,4 +1,6 @@
-﻿using CoreDemo.Models;
+﻿using CoreDemo.Areas.Admin.Models;
+using CoreDemo.Models;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -97,7 +99,17 @@ namespace CoreDemo.Areas.Admin.Controllers
             TempData["Userid"] = user.Id;
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            return View();
+
+            List<RoleAssignViewModel> model = new List<RoleAssignViewModel>();
+            foreach (var item in roles) 
+            {
+                RoleAssignViewModel m = new RoleAssignViewModel();
+                m.ID = item.Id;
+                m.Name = item.Name;
+                m.Exists = userRoles.Contains(item.Name);
+                model.Add(m);
+            }
+            return View(model);
         }
     }
 }
