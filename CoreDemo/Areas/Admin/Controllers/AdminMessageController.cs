@@ -22,5 +22,13 @@ namespace CoreDemo.Areas.Admin.Controllers
             var values = await _messageService.GetInBoxListByWriter(writerId);
             return View(values);
         }
+        public async Task<IActionResult> SendBox()
+        {
+            var username = User.Identity.Name;
+            var usermail = _context.Users.Where(x => x.NameSurname == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = _context.Writers.Where(x => x.Email == usermail).Select(y => y.ID).FirstOrDefault();
+            var values = await _messageService.GetSendBoxByWriterAsync(writerId);
+            return View(values);
+        }
     }
 }
