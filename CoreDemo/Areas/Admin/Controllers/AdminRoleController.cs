@@ -9,9 +9,12 @@ namespace CoreDemo.Areas.Admin.Controllers
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
-        public AdminRoleController(RoleManager<AppRole> roleManager)
+        private readonly UserManager<AppUser> _userManager;
+        public AdminRoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+
         }
         public IActionResult Index()
         {
@@ -78,6 +81,12 @@ namespace CoreDemo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public IActionResult UserRoleList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
         }
     }
 }
