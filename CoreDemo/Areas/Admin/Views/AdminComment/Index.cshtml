@@ -46,6 +46,8 @@
                                     <th>Blog</th>
                                     <th>Point</th>
                                     <th>Date</th>
+                                    <th>Delete</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,6 +60,8 @@
                                         <td>@item.Blog.Title</td>
                                         <td class="text-navy"> <i class="fa fa-level-up"></i> @item.BlogScore</td>
                                         <td>@(((DateTime)item.Date).ToString("dd-MMM-yyyy"))</td>
+                                        <td><a href="#" class="btn btn-outline-danger">Delete</a></td>
+                                        <td><a href="#" class="btn btn-outline-success">Edit</a></td>
                                     </tr>
                                 }
                             </tbody>
