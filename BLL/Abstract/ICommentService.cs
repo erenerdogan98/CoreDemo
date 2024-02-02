@@ -5,5 +5,6 @@ namespace BLL.Abstract
 {
 	public interface ICommentService : IGenericService<Comment>
 	{
-	}
+        Task<List<Comment>> GetListWithBlogAsync();
+    }
 }
