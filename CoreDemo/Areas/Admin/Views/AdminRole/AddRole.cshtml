@@ -5,3 +5,16 @@
     ViewData["Title"] = "AddRole";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
+
+<form method="post">
+    <div class="form-group">
+        <label>Role</label>
+        <input asp-for="@Model.Name" class="form-control" />
+    </div>
+
+    <div asp-validation-summary="ModeOnly">
+
+    </div>
+
+    <button class="btn btn-info">Save</button>
+</form>
