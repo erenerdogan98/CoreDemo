@@ -75,22 +75,25 @@
 
                     <table class="table table-hover table-mail">
                         <tbody>
-                            <tr class="unread">
-                                <td class="check-mail">
-                                    <input type="checkbox" class="i-checks">
-                                </td>
-                                <td class="mail-ontact"><a href="mail_detail.html">Anna Smith</a></td>
-                                <td class="mail-subject"><a href="mail_detail.html">Lorem ipsum dolor noretek imit set.</a></td>
-                                <td class=""><i class="fa fa-paperclip"></i></td>
-                                <td class="text-right mail-date">6.10 AM</td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="unread">
+                                    <td class="check-mail">
+                                        <input type="checkbox" class="i-checks">
+                                    </td>
+                                    <td class="mail-ontact"><a href="mail_detail.html">@item.SenderUser.Name</a></td>
+                                    <td class="mail-subject"><a href="mail_detail.html">@item.Subject</a></td>
+                                    <td class=""><i class="fa fa-paperclip"></i></td>
+                                    <td class="text-right mail-date">@item.Date</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-   
+
 </body>
 
 </html>
