@@ -56,5 +56,18 @@ namespace CoreDemo.Areas.Admin.Controllers
             };
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateRole(RoleUpdateViewModel model)
+        {
+            var values = _roleManager.Roles.Where(x => x.Id == model.Id).FirstOrDefault(); // I save the value I want to update into memory.
+
+            values.Name = model.Name;
+            var result = await _roleManager.UpdateAsync(values);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
 }
