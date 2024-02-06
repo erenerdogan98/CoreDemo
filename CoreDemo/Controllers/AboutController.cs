@@ -10,9 +10,9 @@ namespace CoreDemo.Controllers
         {
             _aboutService = aboutService ?? throw new ArgumentNullException(nameof(_aboutService));
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
-            var values = _aboutService.GetAllAsync();
+            var values = await _aboutService.GetAllAsync();
             return View(values);
 		}
 		public PartialViewResult SocialMediaAbout()
