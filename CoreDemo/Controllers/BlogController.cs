@@ -17,59 +17,48 @@ namespace CoreDemo.Controllers
         private readonly MyContext _context;
         public BlogController(IBlogService blogService, BlogValidator blogValidator, ICategoryService categoryService, MyContext context)
         {
-            _blogService = blogService;
-            _blogValidator = blogValidator;
-            _categoryService = categoryService;
-            _context = context;
+            _blogService = blogService ?? throw new ArgumentNullException(nameof(blogService));
+            _blogValidator = blogValidator ?? throw new ArgumentNullException(nameof(blogValidator));
+            _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var values = _blogService.GetListWithCategoryAsync();
+            var values = await _blogService.GetListWithCategoryAsync();
             return View(values);
         }
-        public IActionResult ReadAll(int id)
+        public async Task<IActionResult> ReadAll(int id)
         {
             ViewBag.i = id;
-            var values = _blogService.GetByIdAsync(id);
+            var values = await _blogService.GetByIdAsync(id);
             return View(values);
         }
-        public IActionResult BlogListByWriter()
+        public async Task<IActionResult> BlogListByWriter()
         {
-            var username = User.Identity.Name;
-            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
-            var values = _blogService.GetBlogsByWriterAsync(writerID);
+            var writerID = GetWriterIdFromUser();
+            var values = await _blogService.GetBlogsByWriterAsync(writerID);
             return View(values);
         }
         [HttpGet]
         public async Task<IActionResult> BlogAdd()
         {
-            IEnumerable<Category> categories = await _categoryService.GetAllAsync();
-            List<SelectListItem> categoryValues = categories
-        .Select(x => new SelectListItem
-        {
-            Text = x.Name,
-            Value = x.ID.ToString()
-        })
-        .ToList();
-            ViewBag.cv = categoryValues;
+            ViewBag.cv = await GetCategorySelectListAsync();
             return View();
         }
         [HttpPost]
-        public IActionResult BlogAdd(Blog blog)
+        public async Task<IActionResult> BlogAdd(Blog blog)
         {
-            var username = User.Identity.Name;
-            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
-
+            var writerID = GetWriterIdFromUser();
             ValidationResult validationResult = _blogValidator.Validate(blog);
+
             if (validationResult.IsValid)
             {
                 blog.Status = true;
-                blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                blog.CreateDate = DateTime.Today;
                 blog.WriterID = writerID;
-                _blogService.AddAsync(blog);
+
+                await _blogService.AddAsync(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
@@ -91,29 +80,45 @@ namespace CoreDemo.Controllers
         public async Task<IActionResult> EditBlog(int id)
         {
             var blogValue = await _blogService.GetByIdAsync(id);
-            IEnumerable<Category> categories = await _categoryService.GetAllAsync();
-            List<SelectListItem> categoryValues = categories
-        .Select(x => new SelectListItem
-        {
-            Text = x.Name,
-            Value = x.ID.ToString()
-        })
-        .ToList();
-            ViewBag.cv = categoryValues;
+            var categoryValues = await GetCategorySelectListAsync();
             return View(blogValue);
         }
         [HttpPost]
-        public IActionResult EditBlog(Blog blog)
+        public async Task<IActionResult> EditBlog(Blog blog)
         {
-            var username = User.Identity.Name;
-            var usermail = _context.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            var writerID = _context.Writers.Where(x => x.Email == usermail).Select(x => x.ID).FirstOrDefault();
+            var writerID = GetWriterIdFromUser();
 
             blog.WriterID = writerID;
-            blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            blog.CreateDate = DateTime.Today;
             blog.Status = true;
-            _blogService.UpdateAsync(blog);
+            await _blogService.UpdateAsync(blog);
             return RedirectToAction("BlogListByWriter");
+        }
+
+        private async Task<List<SelectListItem>> GetCategorySelectListAsync()
+        {
+            var categories = await _categoryService.GetAllAsync();
+
+            return categories
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.ID.ToString()
+                })
+                .ToList();
+        }
+        private int GetWriterIdFromUser()
+        {
+            var username = User.Identity.Name;  
+            var usermail = _context.Users
+                .Where(x => x.UserName == username)
+                .Select(y => y.Email)
+                .FirstOrDefault();
+
+            return _context.Writers
+                .Where(x => x.Email == usermail)
+                .Select(x => x.ID)
+                .FirstOrDefault();
         }
     }
 }
