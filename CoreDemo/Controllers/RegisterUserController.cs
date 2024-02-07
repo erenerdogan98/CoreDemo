@@ -24,15 +24,18 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(UserSignUpViewModel p)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                return View(p);
+            }
                 AppUser appUser = new AppUser()
                 {
                     Email = p.Mail,
                     UserName = p.UserName,
                     NameSurname = p.UserName
                 };
-                var result = await _userManager.CreateAsync(appUser,p.Password);
+                var password = p.Password;
+                var result = await _userManager.CreateAsync(appUser,password);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index","Login");
@@ -44,7 +47,7 @@ namespace CoreDemo.Controllers
                         ModelState.AddModelError("", item.Description);
                     }
                 }
-            }
+
             return View(p);
         }
 
