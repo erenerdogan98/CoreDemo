@@ -14,7 +14,25 @@
             <div class="col-md-7 blog-grid-right">
 
                 <h5>
-                    <a href="/Blog/ReadAll/@item.ID">@item.Content.Substring(0, item.Content.Substring(0, 50).LastIndexOf(" "))... </a>
+                    <a href="/Blog/ReadAll/@item.ID">
+                        @{
+                            var content = item.Content;
+                            if (content.Length > 50)
+                            {
+                                var truncatedContent = content.Substring(0, Math.Min(50, content.Length));
+                                var lastSpaceIndex = truncatedContent.LastIndexOf(" ");
+                                if (lastSpaceIndex != -1)
+                                {
+                                    truncatedContent = truncatedContent.Substring(0, lastSpaceIndex);
+                                }
+                                <text>@truncatedContent... </text>
+                            }
+                            else
+                            {
+                                <text>@content</text>
+                            }
+                        }
+                    </a>
                 </h5>
                 <div class="sub-meta">
                     <span>
