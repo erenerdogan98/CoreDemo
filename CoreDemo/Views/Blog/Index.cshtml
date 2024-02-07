@@ -40,7 +40,25 @@
                                 <h5 class="card-title">
                                     <a href="/Blog/ReadAll/">@item.Title</a>
                                 </h5>
-                                <p class="card-text mb-3">@item.Content.Substring(0, item.Content.Substring(0,130).LastIndexOf(" "))...</p>
+                                <p>
+                                    @{
+                                        var content = item.Content;
+                                        if (content.Length > 130)
+                                        {
+                                            var truncatedContent = content.Substring(0, Math.Min(130, content.Length));
+                                            var lastSpaceIndex = truncatedContent.LastIndexOf(" ");
+                                            if (lastSpaceIndex != -1)
+                                            {
+                                                truncatedContent = truncatedContent.Substring(0, lastSpaceIndex);
+                                            }
+                                            <text>@truncatedContent...</text>
+                                        }
+                                        else
+                                        {
+                                            <text>@content</text>
+                                        }
+                                    }
+                                </p>
                                 <a href="/Blog/ReadAll/@item.ID" class="btn btn-primary read-m">Read More</a>
                             </div>
                         </div>
