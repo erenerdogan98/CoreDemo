@@ -1,5 +1,4 @@
 ﻿using DAL.Context;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
@@ -13,15 +12,25 @@ namespace CoreDemo.Controllers
         }
         public IActionResult Index()
         {
-
-            var userName = User.Identity.Name;
-            var userMail = _context.Users.Where(x =>  x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            var writerId = _context.Writers.Where(x => x.Email == userName).Select(y => y.ID).FirstOrDefault();
+            var writerId = GetWriterIdFromUser();
 
             ViewBag.v1 = _context.Blogs.Count().ToString();
             ViewBag.v2 = _context.Blogs.Where(x => x.WriterID == writerId).Count().ToString();
             ViewBag.v3 = _context.Categories.Count().ToString();
             return View();
+        }
+        private int GetWriterIdFromUser()
+        {
+            var userName = User.Identity.Name;
+            var userMail = _context.Users
+                .Where(x => x.UserName == userName)
+                .Select(y => y.Email)
+                .FirstOrDefault();
+
+            return _context.Writers
+                .Where(x => x.Email == userMail)
+                .Select(y => y.ID)
+                .FirstOrDefault();
         }
     }
 }
