@@ -19,11 +19,11 @@ namespace CoreDemo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(Contact contact)
+        public async Task<IActionResult> Index(Contact contact)
         {
             contact.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
             contact.Status = true;
-            _contactService.AddAsync(contact);
+            await _contactService.AddAsync(contact);
             return RedirectToAction("Index", "Blog");
         }
     }
