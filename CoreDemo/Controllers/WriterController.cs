@@ -1,5 +1,4 @@
 ﻿using BLL.Abstract;
-using BLL.Concrete;
 using BLL.ValidationRules;
 using CoreDemo.Models;
 using DAL.Context;
@@ -8,7 +7,10 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
@@ -18,102 +20,120 @@ namespace CoreDemo.Controllers
         private readonly WriterValidator _writerValidator;
         private readonly MyContext _context;
         private readonly UserManager<AppUser> _userManager;
-        private readonly AppUserManager _appUserManager;
-        public WriterController(IWriterService writerService, WriterValidator validationRules, MyContext context, UserManager<AppUser> userManager, AppUserManager appUserManager)
+
+        public WriterController(IWriterService writerService, WriterValidator writerValidator, MyContext context, UserManager<AppUser> userManager)
         {
-            _writerService = writerService;
-            _writerValidator = validationRules;
-            _context = context;
+            _writerService = writerService ?? throw new ArgumentNullException(nameof(writerService));
+            _writerValidator = writerValidator ?? throw new ArgumentNullException(nameof(writerValidator));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _appUserManager = appUserManager ?? throw new ArgumentNullException(nameof(appUserManager));
         }
+
         [Authorize]
         public IActionResult Index()
         {
-            var usermail = User.Identity.Name;
-            ViewBag.v = usermail;
-            var writerName = _context.Writers.Where(x => x.Email == usermail).Select(x => x.Name).FirstOrDefault();
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
+
+            var writerName = _context.Writers
+                .Where(x => x.Email == userMail)
+                .Select(x => x.Name)
+                .FirstOrDefault();
+
             ViewBag.v2 = writerName;
             return View();
         }
-        public IActionResult WriterProfile()
-        {
-            return View();
-        }
-        public IActionResult WriterMail()
-        {
-            return View();
-        }
+
+        public IActionResult WriterProfile() => View();
+
+        public IActionResult WriterMail() => View();
+
         [AllowAnonymous]
-        public IActionResult Test()
-        {
-            return View();
-        }
+        public IActionResult Test() => View();
+
         [AllowAnonymous]
-        public PartialViewResult WriterNavbarPartial()
-        {
-            return PartialView();
-        }
+        public PartialViewResult WriterNavbarPartial() => PartialView();
+
         [AllowAnonymous]
-        public PartialViewResult WriterFooterPartial()
-        {
-            return PartialView();
-        }
+        public PartialViewResult WriterFooterPartial() => PartialView();
+
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {
-            var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            UserUpdateViewModel model = new UserUpdateViewModel();
-            model.mail = values.Email;
-            model.namesurname = values.NameSurname;
-            model.imageurl = values.ImageUrl;
-            model.username = values.UserName;
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var model = new UserUpdateViewModel
+            {
+                mail = user.Email,
+                namesurname = user.NameSurname,
+                imageurl = user.ImageUrl,
+                username = user.UserName
+            };
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-            var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            values.Email = model.mail;
-            values.NameSurname = model.namesurname;
-            values.ImageUrl = model.imageurl;
-            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.password);
-            var result = await _userManager.UpdateAsync(values);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            user.Email = model.mail;
+            user.NameSurname = model.namesurname;
+            user.ImageUrl = model.imageurl;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.password);
+
+            var result = await _userManager.UpdateAsync(user);
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Dashboard");
             }
             else
+            {
                 return RedirectToAction("Index", "Login");
-
+            }
         }
+
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult WriterAdd()
-        {
-            return View();
-        }
+        public IActionResult WriterAdd() => View();
+
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult WriterAdd(AddProfileImage p)
+        public async Task<IActionResult> WriterAdd(AddProfileImage model)
         {
-            Writer writer = new Writer();
-            if (p.Image != null)
+            var writer = new Writer();
+
+            if (model.Image != null)
             {
-                var extension = Path.GetExtension(p.Image.FileName);
-                var newImageName = Guid.NewGuid() + extension;
+                var extension = Path.GetExtension(model.Image.FileName);
+                var newImageName = $"{Guid.NewGuid()}{extension}";
                 var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles", newImageName);
-                var stream = new FileStream(location, FileMode.Create);
-                p.Image.CopyTo(stream);
+
+                using (var stream = new FileStream(location, FileMode.Create))
+                {
+                    await model.Image.CopyToAsync(stream);
+                }
+
                 writer.Image = newImageName;
             }
-            writer.Email = p.Email;
-            writer.Name = p.Name;
-            writer.Password = p.Password;
-            writer.Status = p.Status;
-            writer.About = p.About;
-            _writerService.AddAsync(writer);
-            return RedirectToAction("Index", "Dashboard");
+            writer.Email = model.Email;
+            writer.Name = model.Name;
+            writer.Password = model.Password;
+            writer.Status = model.Status;
+            writer.About = model.About;
+            ValidationResult validationResult = _writerValidator.Validate(writer);
+           if( validationResult.IsValid)
+            {
+                await _writerService.AddAsync(writer);
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }
