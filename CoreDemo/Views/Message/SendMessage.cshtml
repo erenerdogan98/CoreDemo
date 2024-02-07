@@ -11,7 +11,10 @@
 @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
 {
     @Html.Label("Receiver")
-    <input type="text" class="form-control" />
+
+    @*using DropDownList to choose Receiver  *@
+    @Html.DropDownListFor(x => x.ReceiverID, (IEnumerable<SelectListItem>)ViewBag.Users, "Select Receiver", new { @class = "form-control" })
+
     <br />
     @Html.Label("Subject")
     @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })

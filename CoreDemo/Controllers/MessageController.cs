@@ -41,20 +41,33 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public IActionResult SendMessage()
         {
+            // Select list for users...
+            var users = _context.Users.Select(u => new SelectListItem { Text = u.NameSurname, Value = u.Id.ToString() }).ToList();
+
+            // Send back to view with ViewBag 
+            ViewBag.Users = users;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> SendMessage(Message2 message)
         {
             var username = User.Identity.Name;
-            var usermail = _context.Users.Where(x => x.NameSurname == username).Select(y => y.Email).FirstOrDefault();
-            var writerId = _context.Writers.Where(x => x.Email == usermail).Select(y => y.ID).FirstOrDefault();
+            var user = _context.Users.FirstOrDefault(u => u.NameSurname == username);
+            var writerId = user != null ? _context.Writers.Where(x => x.Email == user.Email).Select(y => y.ID).FirstOrDefault() : 0;
+            if (message.ReceiverID == 0)
+            {
+                ModelState.AddModelError("ReceiverID", "Please select a receiver.");
+                ViewBag.Users = _context.Users.Select(u => new SelectListItem { Text = u.NameSurname, Value = u.Id.ToString() }).ToList();
+                return View();
+            }
+
             message.SenderID = writerId;
-            message.ReceiverID = 2; // will change
             message.Status = true;
             message.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             await _messageService.AddAsync(message);
             return RedirectToAction("InBox");
+
+            // if receiver id is null we add error to Model State , else we have receiver id and we can send message.. 
         }
     }
 }
