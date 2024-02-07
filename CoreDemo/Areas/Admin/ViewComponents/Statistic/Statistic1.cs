@@ -14,7 +14,7 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
             _blogService = blogService ?? throw new ArgumentNullException(nameof(blogService));
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<IViewComponentResult> Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             var blogs = await _blogService.GetAllAsync();
             var blogList = blogs.ToList();

@@ -11,7 +11,7 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<IViewComponentResult> Invoke()
+        public IViewComponentResult Invoke()
         {
             ViewBag.v1 = _context.Blogs.OrderByDescending(x => x.ID).Select(x => x.Title).Take(1).FirstOrDefault();
 
